@@ -1,0 +1,8 @@
+<h1>Laboratorios</h1>
+<?php foreach($labs as $lab): ?>
+  <div class="card">
+    <h2><a href="<?= BASE_URL ?>?action=laboratorio/<?= $lab['id'] ?>"><?= htmlspecialchars($lab['nombre']) ?></a></h2>
+    <p><?= htmlspecialchars($lab['descripcion']) ?></p>
+    <p><strong>Pais:</strong> <?= htmlspecialchars($lab['pais']) ?></p>
+  </div>
+<?php endforeach; ?>

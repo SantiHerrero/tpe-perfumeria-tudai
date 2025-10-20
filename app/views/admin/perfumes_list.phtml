@@ -1,0 +1,13 @@
+<h1>Admin - Perfumes</h1>
+<p><a href="<?= BASE_URL ?>?action=admin/laboratorios">Administrar Laboratorios</a></p>
+<table border="1" cellpadding="6">
+<tr><th>ID</th><th>Codigo</th><th>Laboratorio</th><th>Precio</th></tr>
+<?php foreach($items as $it): ?>
+<tr>
+<td><?= $it['id'] ?></td>
+<td><?= htmlspecialchars($it['codigo']) ?></td>
+<td><?= htmlspecialchars($it['laboratorio_nombre']) ?></td>
+<td>$<?= number_format($it['precio'],2) ?></td>
+</tr>
+<?php endforeach; ?>
+</table>

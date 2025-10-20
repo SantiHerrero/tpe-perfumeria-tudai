@@ -1,0 +1,9 @@
+<h1>Detalle Perfume</h1>
+<div class="card">
+  <h2><?= htmlspecialchars($item['codigo'] ?: 'Perfume '.$item['id']) ?></h2>
+  <p><strong>Laboratorio:</strong> <?= htmlspecialchars($item['laboratorio_nombre']) ?></p>
+  <p><strong>Precio:</strong> $<?= number_format($item['precio'],2) ?></p>
+  <p><strong>Duracion:</strong> <?= htmlspecialchars($item['duracion']) ?> minutos</p>
+  <p><strong>Aroma:</strong> <?= htmlspecialchars($item['aroma']) ?></p>
+  <p><strong>Sexo:</strong> <?= $item['sexo'] == 1 ? 'Masculino' : ($item['sexo']==2 ? 'Femenino' : 'Unisex') ?></p>
+</div>

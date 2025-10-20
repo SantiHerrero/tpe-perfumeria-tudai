@@ -1,0 +1,7 @@
+<h1>Login</h1>
+<?php if(!empty($error)): ?><p style="color:red"><?=htmlspecialchars($error)?></p><?php endif; ?>
+<form method="post" action="<?= BASE_URL ?>?action=login">
+  <label>Usuario: <input name="username"/></label><br/><br/>
+  <label>Contraseña: <input name="password" type="password"/></label><br/><br/>
+  <button>Login</button>
+</form>
