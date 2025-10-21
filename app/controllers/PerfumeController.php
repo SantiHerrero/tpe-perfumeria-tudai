@@ -64,7 +64,7 @@ class PerfumeController extends Controller {
         $aroma = trim($_POST['aroma'] ?? '');
         $sexo = $_POST['sexo'] ?? 0;
 
-        var_dump($id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
+        
         if (
             empty($id_laboratorio) || !is_numeric($id_laboratorio) ||
             empty($precio) || !is_numeric($precio) ||
