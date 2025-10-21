@@ -29,7 +29,12 @@ switch ($params[0]) {
 
     case 'laboratorios':
         $controller = new LaboratorioController();
-        isset($params[1]) ? $controller->showPerfumes($params[1]) : $controller->index();
+        $controller->index();
+        break;
+
+    case 'laboratorio':
+        $controller = new LaboratorioController();
+        $controller->showPerfumes($params[1] ?? null);
         break;
 
     case 'login':

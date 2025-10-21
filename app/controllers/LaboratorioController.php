@@ -16,11 +16,25 @@ class LaboratorioController extends Controller {
     }
 
     public function showPerfumes($id) {
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'Laboratorio inválido']);
+            return;
+        }
+
         require_once __DIR__ . '/../models/PerfumeModel.php';
         $perfModel = new PerfumeModel();
+
         $lab = $this->model->find($id);
+        if (!$lab) {
+            $this->render('errors/404.phtml', ['message' => 'Laboratorio no encontrado']);
+            return;
+        }
+
         $items = $perfModel->byLaboratorio($id);
-        $this->render('laboratorios/perfumes_by_lab.phtml', ['items' => $items, 'lab' => $lab]);
+        $this->render('laboratorios/perfumes_by_lab.phtml', [
+            'items' => $items,
+            'lab' => $lab
+        ]);
     }
 
     // === ADMIN ===
@@ -45,38 +59,85 @@ class LaboratorioController extends Controller {
 
     public function create() {
         $this->checkAdmin();
-        $this->model->create(
-            $_POST['nombre'],
-            $_POST['descripcion'],
-            $_POST['url'],
-            $_POST['fundador'],
-            $_POST['pais']
-        );
+
+        $nombre = trim($_POST['nombre'] ?? '');
+        $descripcion = trim($_POST['descripcion'] ?? '');
+        $url = trim($_POST['url'] ?? '');
+        $fundador = trim($_POST['fundador'] ?? '');
+        $pais = trim($_POST['pais'] ?? '');
+
+        if (empty($nombre) || empty($descripcion) || empty($url) || empty($fundador) || empty($pais)) {
+            $error = 'Todos los campos son obligatorios.';
+            $this->render('admin/laboratorio_form.phtml', ['error' => $error]);
+            return;
+        }
+
+        $this->model->create($nombre, $descripcion, $url, $fundador, $pais);
         header('Location: ' . BASE_URL . '?action=admin/laboratorios');
     }
 
     public function delete($id) {
         $this->checkAdmin();
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
+        $lab = $this->model->find($id);
+        if (!$lab) {
+            $this->render('errors/404.phtml', ['message' => 'Laboratorio no encontrado']);
+            return;
+        }
+
         $this->model->delete($id);
         header('Location: ' . BASE_URL . '?action=admin/laboratorios');
     }
 
     public function editForm($id) {
         $this->checkAdmin();
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
         $lab = $this->model->find($id);
+        if (!$lab) {
+            $this->render('errors/404.phtml', ['message' => 'Laboratorio no encontrado']);
+            return;
+        }
+
         $this->render('admin/laboratorio_form.phtml', ['lab' => $lab]);
     }
 
     public function edit($id) {
         $this->checkAdmin();
-        $this->model->update(
-            $id,
-            $_POST['nombre'],
-            $_POST['descripcion'],
-            $_POST['url'],
-            $_POST['fundador'],
-            $_POST['pais']
-        );
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
+        $nombre = trim($_POST['nombre'] ?? '');
+        $descripcion = trim($_POST['descripcion'] ?? '');
+        $url = trim($_POST['url'] ?? '');
+        $fundador = trim($_POST['fundador'] ?? '');
+        $pais = trim($_POST['pais'] ?? '');
+
+        if (empty($nombre) || empty($descripcion) || empty($url) || empty($fundador) || empty($pais)) {
+            $error = 'Todos los campos son obligatorios.';
+            $lab = $this->model->find($id);
+            $this->render('admin/laboratorio_form.phtml', ['lab' => $lab, 'error' => $error]);
+            return;
+        }
+
+        $lab = $this->model->find($id);
+        if (!$lab) {
+            $this->render('errors/404.phtml', ['message' => 'Laboratorio no encontrado']);
+            return;
+        }
+
+        $this->model->update($id, $nombre, $descripcion, $fundador, $url, $pais);
         header('Location: ' . BASE_URL . '?action=admin/laboratorios');
     }
 }

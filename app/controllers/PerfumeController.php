@@ -19,8 +19,17 @@ class PerfumeController extends Controller {
     }
 
     public function show($id) {
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
         $item = $this->model->find($id);
-        if (!$item) die("Perfume no encontrado");
+        if (!$item) {
+            $this->render('errors/404.phtml', ['message' => 'Perfume no encontrado']);
+            return;
+        }
+
         $this->render('perfumes/detail.phtml', ['item' => $item]);
     }
 
@@ -47,41 +56,135 @@ class PerfumeController extends Controller {
 
     public function create() {
         $this->checkAdmin();
-        $this->model->create(
-            $_POST['id_laboratorio'],
-            $_POST['precio'],
-            $_POST['codigo'],
-            $_POST['duracion'],
-            $_POST['aroma'],
-            $_POST['sexo']
-        );
+
+        $id_laboratorio = $_POST['id_laboratorio'] ?? '';
+        $precio = $_POST['precio'] ?? '';
+        $codigo = trim($_POST['codigo'] ?? '');
+        $duracion = trim($_POST['duracion'] ?? '');
+        $aroma = trim($_POST['aroma'] ?? '');
+        $sexo = trim($_POST['sexo'] ?? '');
+
+        if (
+            empty($id_laboratorio) || !is_numeric($id_laboratorio) ||
+            empty($precio) || !is_numeric($precio) ||
+            empty($codigo) || empty($duracion) ||
+            empty($aroma) || empty($sexo)
+        ) {
+            $error = 'Todos los campos son obligatorios y deben ser válidos.';
+            $labs = $this->labModel->all();
+            $this->render('admin/perfume_form.phtml', [
+                'labs' => $labs,
+                'error' => $error,
+                'values' => compact('id_laboratorio', 'precio', 'codigo', 'duracion', 'aroma', 'sexo')
+            ]);
+            return;
+        }
+
+        $lab = $this->labModel->find($id_laboratorio);
+        if (!$lab) {
+            $error = 'El laboratorio seleccionado no existe.';
+            $labs = $this->labModel->all();
+            $this->render('admin/perfume_form.phtml', [
+                'labs' => $labs,
+                'error' => $error
+            ]);
+            return;
+        }
+
+        $this->model->create($id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
         header('Location: ' . BASE_URL . '?action=admin/perfumes');
     }
 
     public function delete($id) {
         $this->checkAdmin();
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
+        $item = $this->model->find($id);
+        if (!$item) {
+            $this->render('errors/404.phtml', ['message' => 'Perfume no encontrado']);
+            return;
+        }
+
         $this->model->delete($id);
         header('Location: ' . BASE_URL . '?action=admin/perfumes');
     }
 
     public function editForm($id) {
         $this->checkAdmin();
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
         $item = $this->model->find($id);
+        if (!$item) {
+            $this->render('errors/404.phtml', ['message' => 'Perfume no encontrado']);
+            return;
+        }
+
         $labs = $this->labModel->all();
         $this->render('admin/perfume_form.phtml', ['labs' => $labs, 'item' => $item]);
     }
 
+
     public function edit($id) {
         $this->checkAdmin();
-        $this->model->update(
-            $id,
-            $_POST['id_laboratorio'],
-            $_POST['precio'],
-            $_POST['codigo'],
-            $_POST['duracion'],
-            $_POST['aroma'],
-            $_POST['sexo']
-        );
+
+        if (empty($id) || !is_numeric($id)) {
+            $this->render('errors/404.phtml', ['message' => 'ID inválido']);
+            return;
+        }
+
+        $id_laboratorio = $_POST['id_laboratorio'] ?? '';
+        $precio = $_POST['precio'] ?? '';
+        $codigo = trim($_POST['codigo'] ?? '');
+        $duracion = trim($_POST['duracion'] ?? '');
+        $aroma = trim($_POST['aroma'] ?? '');
+        $sexo = trim($_POST['sexo'] ?? '');
+
+        // Validaciones
+        if (
+            empty($id_laboratorio) || !is_numeric($id_laboratorio) ||
+            empty($precio) || !is_numeric($precio) ||
+            empty($codigo) || empty($duracion) ||
+            empty($aroma) || empty($sexo)
+        ) {
+            $error = 'Todos los campos son obligatorios y deben ser válidos.';
+            $labs = $this->labModel->all();
+            $item = $this->model->find($id);
+            $this->render('admin/perfume_form.phtml', [
+                'labs' => $labs,
+                'item' => $item,
+                'error' => $error
+            ]);
+            return;
+        }
+
+        $lab = $this->labModel->find($id_laboratorio);
+        if (!$lab) {
+            $error = 'El laboratorio seleccionado no existe.';
+            $labs = $this->labModel->all();
+            $item = $this->model->find($id);
+            $this->render('admin/perfume_form.phtml', [
+                'labs' => $labs,
+                'item' => $item,
+                'error' => $error
+            ]);
+            return;
+        }
+
+        $item = $this->model->find($id);
+        if (!$item) {
+            $this->render('errors/404.phtml', ['message' => 'Perfume no encontrado']);
+            return;
+        }
+
+        $this->model->update($id, $id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
         header('Location: ' . BASE_URL . '?action=admin/perfumes');
     }
 }
