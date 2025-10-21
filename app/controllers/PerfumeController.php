@@ -62,13 +62,14 @@ class PerfumeController extends Controller {
         $codigo = trim($_POST['codigo'] ?? '');
         $duracion = trim($_POST['duracion'] ?? '');
         $aroma = trim($_POST['aroma'] ?? '');
-        $sexo = trim($_POST['sexo'] ?? '');
+        $sexo = $_POST['sexo'] ?? 0;
 
+        var_dump($id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
         if (
             empty($id_laboratorio) || !is_numeric($id_laboratorio) ||
             empty($precio) || !is_numeric($precio) ||
             empty($codigo) || empty($duracion) ||
-            empty($aroma) || empty($sexo)
+            empty($aroma) || !is_numeric($sexo)
         ) {
             $error = 'Todos los campos son obligatorios y deben ser válidos.';
             $labs = $this->labModel->all();
