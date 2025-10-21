@@ -1,13 +1,46 @@
 <h1>Admin - Perfumes</h1>
-<p><a href="<?= BASE_URL ?>?action=admin/laboratorios">Administrar Laboratorios</a></p>
-<table border="1" cellpadding="6">
-<tr><th>ID</th><th>Codigo</th><th>Laboratorio</th><th>Precio</th></tr>
-<?php foreach($items as $it): ?>
-<tr>
-<td><?= $it['id'] ?></td>
-<td><?= htmlspecialchars($it['codigo']) ?></td>
-<td><?= htmlspecialchars($it['laboratorio_nombre']) ?></td>
-<td>$<?= number_format($it['precio'],2) ?></td>
-</tr>
-<?php endforeach; ?>
+
+<p>
+  <a href="<?= BASE_URL ?>?action=admin/laboratorios">Administrar Laboratorios</a>
+</p>
+
+<hr>
+
+<h1>Crear nuevo perfume</h1>
+<form method="post" action="<?= BASE_URL ?>?action=admin/perfumes/create">
+  <label>Código:</label>
+  <input type="text" name="codigo" required>
+
+  <label>Laboratorio:</label>
+  <select name="laboratorio_id" required>
+    <option value="">Seleccione...</option>
+    <<?php foreach ($laboratorios as $lab): ?>
+        <option value="<?= $lab['id'] ?>"><?= htmlspecialchars($lab['nombre']) ?></option>
+    <?php endforeach; ?>
+  </select>
+
+  <label>Precio:</label>
+  <input type="number" step="0.01" name="precio" required>
+
+  <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<h2>Listado de perfumes</h2>
+<table >
+  <tr>
+    <th>ID</th>
+    <th>Código</th>
+    <th>Laboratorio</th>
+    <th>Precio</th>
+  </tr>
+  <?php foreach ($items as $it): ?>
+  <tr>
+    <td><?= $it['id'] ?></td>
+    <td><?= htmlspecialchars($it['codigo']) ?></td>
+    <td><?= htmlspecialchars($it['laboratorio_nombre']) ?></td>
+    <td>$<?= number_format($it['precio'], 2) ?></td>
+  </tr>
+  <?php endforeach; ?>
 </table>

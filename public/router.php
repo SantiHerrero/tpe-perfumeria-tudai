@@ -25,6 +25,9 @@ switch ($params[0]) {
     case 'logout':
         (new AuthController())->logout();
         break;
+    case 'admin/perfumes/create':
+        (new PerfumeController())->adminCreateSubmit();
+        break;
     default:
         echo "404 Not Found";
 }

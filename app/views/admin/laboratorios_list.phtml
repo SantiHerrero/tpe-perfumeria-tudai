@@ -1,5 +1,5 @@
 <h1>Admin - Laboratorios</h1>
-<table border="1" cellpadding="6">
+<table>
 <tr><th>ID</th><th>Nombre</th><th>Pais</th></tr>
 <?php foreach($labs as $l): ?>
 <tr><td><?= $l['id'] ?></td><td><?= htmlspecialchars($l['nombre']) ?></td><td><?= htmlspecialchars($l['pais']) ?></td></tr>
