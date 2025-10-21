@@ -1,7 +1,11 @@
-<h1>Login</h1>
-<?php if(!empty($error)): ?><p style="color:red"><?=htmlspecialchars($error)?></p><?php endif; ?>
-<form method="post" action="<?= BASE_URL ?>?action=login">
-  <label>Usuario: <input name="username"/></label><br/><br/>
-  <label>Contraseña: <input name="password" type="password"/></label><br/><br/>
-  <button>Login</button>
-</form>
+<div class="login-form">
+  <h1>Iniciar Sesión</h1>
+  <?php if(!empty($error)): ?><p style="color:red"><?= htmlspecialchars($error) ?></p><?php endif; ?>
+  <form method="post" action="<?= BASE_URL ?>?action=login">
+    <label>Usuario:</label>
+    <input name="username" required>
+    <label>Contraseña:</label>
+    <input name="password" type="password" required>
+    <button class="btn">Ingresar</button>
+  </form>
+</div>

@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>TPE - Perfumes</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>style.css">
 </head>
 <body>
-<nav>
-  <a href="<?= BASE_URL ?>?action=perfumes">Perfumes</a>
-  <a href="<?= BASE_URL ?>?action=laboratorios">Laboratorios</a>
-  <a href="<?= BASE_URL ?>?action=admin/perfumes">Admin</a>
-  <?php if (session_status() === PHP_SESSION_NONE) { session_start(); } if(isset($_SESSION['USER_ID'])): ?>
-    <span>Hola <?=htmlspecialchars($_SESSION['USER_NAME'])?></span>
-    <a href="<?= BASE_URL ?>?action=logout">Logout</a>
-  <?php else: ?>
-    <a href="<?= BASE_URL ?>?action=login">Login</a>
-  <?php endif; ?>
-</nav>
-<hr/>
+<header>
+  <nav>
+    <a href="<?= BASE_URL ?>?action=perfumes">Perfumes</a>
+    <a href="<?= BASE_URL ?>?action=laboratorios">Laboratorios</a>
+    <a href="<?= BASE_URL ?>?action=admin/perfumes">Admin</a>
+      <?php if (session_status() === PHP_SESSION_NONE) { session_start(); } if(isset($_SESSION['USER_ID'])): ?>
+      <span>Hola <?=htmlspecialchars($_SESSION['USER_NAME'])?></span>
+      <a href="<?= BASE_URL ?>?action=logout">Logout</a>
+    <?php else: ?>
+      <a href="<?= BASE_URL ?>?action=login">Login</a>
+    <?php endif; ?>
+  </nav>
+</header>

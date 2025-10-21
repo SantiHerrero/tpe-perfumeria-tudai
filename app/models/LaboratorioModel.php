@@ -15,4 +15,12 @@ class LaboratorioModel extends Model {
         $stmt->execute([$nombre,$descripcion,$url,$fundador,$pais]);
         return $this->pdo->lastInsertId();
     }
+    public function update($id,$nombre,$descripcion,$url,$fundador,$pais){
+        $stmt = $this->pdo->prepare('UPDATE laboratorios SET nombre=?, descripcion=?, url=?, fundador=?, pais=? WHERE id=?');
+        $stmt->execute([$nombre,$descripcion,$url,$fundador,$pais,$id]);
+    }
+    public function delete($id){
+        $stmt = $this->pdo->prepare('DELETE FROM laboratorios WHERE id=?');
+        $stmt->execute([$id]);
+    }
 }

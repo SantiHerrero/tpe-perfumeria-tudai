@@ -20,4 +20,12 @@ class PerfumeModel extends Model {
         $stmt->execute([$id_laboratorio,$precio,$codigo,$duracion,$aroma,$sexo]);
         return $this->pdo->lastInsertId();
     }
+    public function update($id,$id_laboratorio,$precio,$codigo,$duracion,$aroma,$sexo){
+        $stmt = $this->pdo->prepare('UPDATE perfumes SET id_laboratorio=?, precio=?, codigo=?, duracion=?, aroma=?, sexo=? WHERE id=?');
+        $stmt->execute([$id_laboratorio,$precio,$codigo,$duracion,$aroma,$sexo,$id]);
+    }
+    public function delete($id){
+        $stmt = $this->pdo->prepare('DELETE FROM perfumes WHERE id=?');
+        $stmt->execute([$id]);
+    }
 }

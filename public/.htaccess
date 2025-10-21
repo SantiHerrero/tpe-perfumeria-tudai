@@ -1,5 +1,9 @@
 RewriteEngine On
-# Route all requests to index.php and preserve query string
+RewriteBase /tpe-perfumeria-tudai/public/
+
+# Si el archivo o directorio existe, no reescribirlo
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# Todo lo demás va al router principal
 RewriteRule ^(.*)$ index.php?action=$1 [QSA,L]

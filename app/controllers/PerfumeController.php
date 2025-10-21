@@ -7,62 +7,81 @@ class PerfumeController extends Controller {
     private $model;
     private $labModel;
 
-    public function __construct(){
+    public function __construct() {
         $this->model = new PerfumeModel();
         $this->labModel = new LaboratorioModel();
     }
 
-    public function index(){
+    // === PUBLIC ===
+    public function index() {
         $items = $this->model->all();
-        $this->render('perfumes/list.phtml', ['items'=>$items]);
+        $this->render('perfumes/list.phtml', ['items' => $items]);
     }
 
-    public function show($id){
-        if (!$id) { echo 'No ID'; return; }
+    public function show($id) {
         $item = $this->model->find($id);
-        if (!$item) { echo 'Not found'; return; }
-        $this->render('perfumes/detail.phtml', ['item'=>$item]);
+        if (!$item) die("Perfume no encontrado");
+        $this->render('perfumes/detail.phtml', ['item' => $item]);
     }
 
-    public function adminList(){
+    // === ADMIN ===
+    private function checkAdmin() {
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
-            header('Location: '.BASE_URL.'login');
+            header('Location: ' . BASE_URL . '?action=login');
             exit;
         }
+    }
 
+    public function adminList() {
+        $this->checkAdmin();
         $items = $this->model->all();
-        $laboratorios = $this->labModel->all();
-
-        $this->render('admin/perfumes_list.phtml', [
-            'items' => $items,
-            'laboratorios' => $laboratorios
-        ]);
+        $this->render('admin/perfumes_list.phtml', ['items' => $items]);
     }
 
-    public function adminCreateSubmit() {
-        echo '<pre>';  // para que se vea mejor
-    var_dump($_POST);
-    echo '</pre>';
-    exit; // corta la ejecución para ver solo esto
-        session_start();
-        if (!isset($_SESSION['USER_ID'])) {
-            header('Location: '.BASE_URL.'login');
-            exit;
-        }
+    public function createForm() {
+        $this->checkAdmin();
+        $labs = $this->labModel->all();
+        $this->render('admin/perfume_form.phtml', ['labs' => $labs]);
+    }
 
-        $codigo = $_POST['codigo'] ?? null;
-        $laboratorio_id = $_POST['laboratorio_id'] ?? null;
-        $precio = $_POST['precio'] ?? null;
+    public function create() {
+        $this->checkAdmin();
+        $this->model->create(
+            $_POST['id_laboratorio'],
+            $_POST['precio'],
+            $_POST['codigo'],
+            $_POST['duracion'],
+            $_POST['aroma'],
+            $_POST['sexo']
+        );
+        header('Location: ' . BASE_URL . '?action=admin/perfumes');
+    }
 
-        if (!$codigo || !$laboratorio_id || !$precio) {
-            echo "Faltan datos.";
-            return;
-        }
+    public function delete($id) {
+        $this->checkAdmin();
+        $this->model->delete($id);
+        header('Location: ' . BASE_URL . '?action=admin/perfumes');
+    }
 
-        $this->model->create($codigo, $laboratorio_id, $precio);
+    public function editForm($id) {
+        $this->checkAdmin();
+        $item = $this->model->find($id);
+        $labs = $this->labModel->all();
+        $this->render('admin/perfume_form.phtml', ['labs' => $labs, 'item' => $item]);
+    }
 
-        header('Location: '.BASE_URL.'?action=admin/perfumes');
-        exit;
+    public function edit($id) {
+        $this->checkAdmin();
+        $this->model->update(
+            $id,
+            $_POST['id_laboratorio'],
+            $_POST['precio'],
+            $_POST['codigo'],
+            $_POST['duracion'],
+            $_POST['aroma'],
+            $_POST['sexo']
+        );
+        header('Location: ' . BASE_URL . '?action=admin/perfumes');
     }
 }

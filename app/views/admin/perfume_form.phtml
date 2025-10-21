@@ -1,0 +1,24 @@
+<h1><?= isset($item) ? 'Editar' : 'Agregar' ?> Perfume</h1>
+<form method="post" action="<?= BASE_URL ?>?action=<?= isset($item) ? 'admin/perfumes/edit/'.$item['id'] : 'admin/perfumes/create' ?>">
+  <label>Laboratorio:
+    <select name="id_laboratorio" required>
+      <?php foreach($labs as $lab): ?>
+        <option value="<?= $lab['id'] ?>" <?= isset($item) && $lab['id']==$item['id_laboratorio']?'selected':'' ?>>
+          <?= htmlspecialchars($lab['nombre']) ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+  </label><br/>
+  <label>Precio: <input type="number" step="0.01" name="precio" value="<?= $item['precio'] ?? '' ?>" required></label><br/>
+  <label>Código: <input name="codigo" value="<?= $item['codigo'] ?? '' ?>"></label><br/>
+  <label>Duración (min): <input type="number" name="duracion" value="<?= $item['duracion'] ?? '' ?>" required></label><br/>
+  <label>Aroma: <input name="aroma" value="<?= $item['aroma'] ?? '' ?>"></label><br/>
+  <label>Sexo:
+    <select name="sexo">
+      <option value="0" <?= (isset($item)&&$item['sexo']==0)?'selected':'' ?>>Unisex</option>
+      <option value="1" <?= (isset($item)&&$item['sexo']==1)?'selected':'' ?>>Masculino</option>
+      <option value="2" <?= (isset($item)&&$item['sexo']==2)?'selected':'' ?>>Femenino</option>
+    </select>
+  </label><br/><br/>
+  <button type="submit">Guardar</button>
+</form>

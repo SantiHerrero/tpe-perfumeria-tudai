@@ -1,7 +1,31 @@
-<h1>Admin - Laboratorios</h1>
-<table>
-<tr><th>ID</th><th>Nombre</th><th>Pais</th></tr>
-<?php foreach($labs as $l): ?>
-<tr><td><?= $l['id'] ?></td><td><?= htmlspecialchars($l['nombre']) ?></td><td><?= htmlspecialchars($l['pais']) ?></td></tr>
-<?php endforeach; ?>
-</table>
+<h1 class="page-title">Laboratorios</h1>
+
+<?php if (empty($labs)): ?>
+  <p>No hay laboratorios registrados actualmente.</p>
+<?php else: ?>
+  <div class="lab-list">
+    <?php foreach($labs as $lab): ?>
+      <div class="card lab-card">
+        <h2 class="lab-name">
+          <a href="<?= BASE_URL ?>?action=laboratorios/<?= $lab['id'] ?>">
+            <?= htmlspecialchars($lab['nombre']) ?>
+          </a>
+        </h2>
+
+        <p class="lab-desc"><?= htmlspecialchars($lab['descripcion'] ?: 'Sin descripción') ?></p>
+
+        <p class="lab-fundador">
+          <strong>Fundador:</strong> <?= htmlspecialchars($lab['fundador']) ?>
+        </p>
+
+        <p class="lab-pais">
+          <strong>País:</strong> <?= htmlspecialchars($lab['pais']) ?>
+        </p>
+
+        <a class="btn" href="<?= BASE_URL ?>?action=laboratorios/<?= $lab['id'] ?>">
+          Ver perfumes
+        </a>
+      </div>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>

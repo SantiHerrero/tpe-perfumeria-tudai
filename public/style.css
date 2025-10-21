@@ -1,0 +1,218 @@
+body
+{
+    font-family: Arial, Helvetica, sans-serif; margin:20px;
+}
+nav a
+{
+    margin-right:10px;
+}
+.card
+{
+    border:1px solid #ddd;padding:10px;margin:10px 0;border-radius:6px;
+}
+    
+    /* ======== PERFUMES ======== */
+.perfume-list, .lab-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.perfume-card, .lab-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ======== ENCABEZADOS ======== */
+.page-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* ======== LINKS DE NOMBRES ======== */
+.perfume-name a, .lab-name a {
+  color: #F3661E;
+  text-decoration: none;
+}
+
+.perfume-name a:hover, .lab-name a:hover {
+  text-decoration: underline;
+}
+
+
+/* ======== PÁGINA 404 ======== */
+.page-404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+}
+
+.error-box {
+  background: white;
+  padding: 40px 60px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  animation: float 1.5s ease-in-out infinite alternate;
+}
+
+.error-title {
+  font-size: 90px;
+  font-weight: bold;
+  color: #F3661E;
+  margin: 0;
+}
+
+.error-message {
+  font-size: 20px;
+  margin: 10px 0 25px;
+  color: #555;
+}
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-10px); }
+}
+
+/* ======== ESTILOS GENERALES ======== */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header, nav, footer {
+  background-color: #F3661E; /* naranja midas */
+  color: white;
+  padding: 10px 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+  color: #F3661E;
+}
+
+.btn {
+  background: #F3661E;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #d75517;
+}
+
+/* ======== LISTAS DE ITEMS ======== */
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  transition: box-shadow .2s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.card h2, .card h3 {
+  margin-top: 0;
+}
+
+/* ======== FORMULARIOS ======== */
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form button {
+  margin-top: 15px;
+}
+
+/* ======== TABLAS ADMIN ======== */
+.table-admin {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.table-admin th, .table-admin td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-admin th {
+  background-color: #F3661E;
+  color: white;
+}
+
+.table-admin tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.actions a {
+  margin-right: 10px;
+  color: #F3661E;
+  text-decoration: none;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+/* ======== LOGIN ======== */
+.login-form {
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.login-form h1 {
+  text-align: center;
+  color: #F3661E;
+}
+
+.login-form button {
+  width: 100%;
+}

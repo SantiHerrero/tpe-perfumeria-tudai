@@ -1,0 +1,11 @@
+<h1><?= isset($lab) ? 'Editar' : 'Agregar' ?> Laboratorio</h1>
+<form method="post" action="<?= BASE_URL ?>?action=<?= isset($lab) ? 'admin/laboratorios/edit/'.$lab['id'] : 'admin/laboratorios/create' ?>">
+  <label>Nombre: <input name="nombre" value="<?= $lab['nombre'] ?? '' ?>" required></label><br/>
+  <label>Descripción:<br/>
+    <textarea name="descripcion" rows="4" cols="50"><?= $lab['descripcion'] ?? '' ?></textarea>
+  </label><br/>
+  <label>URL: <input name="url" value="<?= $lab['url'] ?? '' ?>" required></label><br/>
+  <label>Fundador: <input name="fundador" value="<?= $lab['fundador'] ?? '' ?>" required></label><br/>
+  <label>País: <input name="pais" value="<?= $lab['pais'] ?? '' ?>" required></label><br/><br/>
+  <button type="submit">Guardar</button>
+</form>
