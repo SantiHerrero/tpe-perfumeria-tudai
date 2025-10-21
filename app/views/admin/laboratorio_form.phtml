@@ -1,4 +1,11 @@
 <h1><?= isset($lab) ? 'Editar' : 'Agregar' ?> Laboratorio</h1>
+
+<?php if (!empty($error)): ?>
+  <div class="error-box">
+    <strong>Error:</strong> <?= htmlspecialchars($error) ?>
+  </div>
+<?php endif; ?>
+
 <form method="post" action="<?= BASE_URL ?>?action=<?= isset($lab) ? 'admin/laboratorios/edit/'.$lab['id'] : 'admin/laboratorios/create' ?>">
   <label>Nombre: <input name="nombre" value="<?= $lab['nombre'] ?? '' ?>" required></label><br/>
   <label>Descripción:<br/>
