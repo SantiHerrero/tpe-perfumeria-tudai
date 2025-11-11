@@ -12,7 +12,7 @@ class AuthController {
             if ($user && password_verify($p, $user['contrasenia'])) {
                 $_SESSION['USER_ID'] = $user['id'];
                 $_SESSION['USER_NAME'] = $user['nombre_usuario'];
-                header('Location: '.BASE_URL.'?action=admin/perfumes');
+                header('Location: '.BASE_URL.'admin/perfumes');
                 exit;
             } else {
                 $error = 'Credenciales invalidas';
@@ -29,6 +29,6 @@ class AuthController {
     public function logout(){
         session_start();
         session_destroy();
-        header('Location: '.BASE_URL.'?action=perfumes');
+        header('Location: '.BASE_URL.'perfumes');
     }
 }

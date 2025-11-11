@@ -41,7 +41,7 @@ class LaboratorioController extends Controller {
     private function checkAdmin() {
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
-            header('Location: ' . BASE_URL . '?action=login');
+            header('Location: ' . BASE_URL . 'login');
             exit;
         }
     }
@@ -73,7 +73,7 @@ class LaboratorioController extends Controller {
         }
 
         $this->model->create($nombre, $descripcion, $url, $fundador, $pais);
-        header('Location: ' . BASE_URL . '?action=admin/laboratorios');
+        header('Location: ' . BASE_URL . 'admin/laboratorios');
     }
 
     public function delete($id) {
@@ -91,7 +91,7 @@ class LaboratorioController extends Controller {
         }
 
         $this->model->delete($id);
-        header('Location: ' . BASE_URL . '?action=admin/laboratorios');
+        header('Location: ' . BASE_URL . 'admin/laboratorios');
     }
 
     public function editForm($id) {
@@ -138,6 +138,6 @@ class LaboratorioController extends Controller {
         }
 
         $this->model->update($id, $nombre, $descripcion, $fundador, $url, $pais);
-        header('Location: ' . BASE_URL . '?action=admin/laboratorios');
+        header('Location: ' . BASE_URL . 'admin/laboratorios');
     }
 }

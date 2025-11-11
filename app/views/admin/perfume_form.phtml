@@ -6,7 +6,7 @@
   </div>
 <?php endif; ?>
 
-<form method="post" action="<?= BASE_URL ?>?action=<?= isset($item) ? 'admin/perfumes/edit/'.$item['id'] : 'admin/perfumes/create' ?>">
+<form method="post" action="<?= BASE_URL ?><?= isset($item) ? 'admin/perfumes/edit/'.$item['id'] : 'admin/perfumes/create' ?>">
   <label>Laboratorio:
     <select name="id_laboratorio" required>
       <?php foreach($labs as $lab): ?>

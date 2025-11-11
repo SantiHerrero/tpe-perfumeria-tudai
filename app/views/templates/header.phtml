@@ -8,14 +8,15 @@
 <body>
 <header>
   <nav>
-    <a href="<?= BASE_URL ?>?action=perfumes">Perfumes</a>
-    <a href="<?= BASE_URL ?>?action=laboratorios">Laboratorios</a>
-    <a href="<?= BASE_URL ?>?action=admin/perfumes">Admin</a>
+    <!-- saCAR ACTION -->
+    <a href="<?= BASE_URL ?>perfumes">Perfumes</a>
+    <a href="<?= BASE_URL ?>laboratorios">Laboratorios</a>
+    <a href="<?= BASE_URL ?>admin/perfumes">Admin</a>
       <?php if (session_status() === PHP_SESSION_NONE) { session_start(); } if(isset($_SESSION['USER_ID'])): ?>
       <span>Hola <?=htmlspecialchars($_SESSION['USER_NAME'])?></span>
-      <a href="<?= BASE_URL ?>?action=logout">Logout</a>
+      <a href="<?= BASE_URL ?>logout">Logout</a>
     <?php else: ?>
-      <a href="<?= BASE_URL ?>?action=login">Login</a>
+      <a href="<?= BASE_URL ?>login">Login</a>
     <?php endif; ?>
   </nav>
 </header>

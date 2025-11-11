@@ -1,18 +1,17 @@
 <h1>Administrar Perfumes</h1>
-<p><a class="btn" href="<?= BASE_URL ?>?action=admin/laboratorios">Ver Laboratorios</a></p>
-<p><a class="btn" href="<?= BASE_URL ?>?action=admin/perfumes/createForm">Agregar Perfume</a></p>
+<p><a class="btn" href="<?= BASE_URL ?>admin/laboratorios">Ver Laboratorios</a></p>
+<p><a class="btn" href="<?= BASE_URL ?>admin/perfumes/createForm">Agregar Perfume</a></p>
 
 <table class="table-admin">
-<tr><th>ID</th><th>Código</th><th>Laboratorio</th><th>Precio</th><th>Acciones</th></tr>
+<tr><th>Código</th><th>Laboratorio</th><th>Precio</th><th>Acciones</th></tr>
 <?php foreach($items as $it): ?>
 <tr>
-  <td><?= $it['id'] ?></td>
   <td><?= htmlspecialchars($it['codigo']) ?></td>
   <td><?= htmlspecialchars($it['laboratorio_nombre']) ?></td>
   <td>$<?= number_format($it['precio'],2) ?></td>
   <td class="actions">
-    <a href="<?= BASE_URL ?>?action=admin/perfumes/editForm/<?= $it['id'] ?>">Editar</a>
-    <a href="<?= BASE_URL ?>?action=admin/perfumes/delete/<?= $it['id'] ?>">Eliminar</a>
+    <a href="<?= BASE_URL ?>admin/perfumes/editForm/<?= $it['id'] ?>">Editar</a>
+    <a href="<?= BASE_URL ?>admin/perfumes/delete/<?= $it['id'] ?>">Eliminar</a>
   </td>
 </tr>
 <?php endforeach; ?>

@@ -37,7 +37,7 @@ class PerfumeController extends Controller {
     private function checkAdmin() {
         session_start();
         if (!isset($_SESSION['USER_ID'])) {
-            header('Location: ' . BASE_URL . '?action=login');
+            header('Location: ' . BASE_URL . 'login');
             exit;
         }
     }
@@ -93,7 +93,7 @@ class PerfumeController extends Controller {
         }
 
         $this->model->create($id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
-        header('Location: ' . BASE_URL . '?action=admin/perfumes');
+        header('Location: ' . BASE_URL . 'admin/perfumes');
     }
 
     public function delete($id) {
@@ -111,7 +111,7 @@ class PerfumeController extends Controller {
         }
 
         $this->model->delete($id);
-        header('Location: ' . BASE_URL . '?action=admin/perfumes');
+        header('Location: ' . BASE_URL . 'admin/perfumes');
     }
 
     public function editForm($id) {
@@ -146,14 +146,14 @@ class PerfumeController extends Controller {
         $codigo = trim($_POST['codigo'] ?? '');
         $duracion = trim($_POST['duracion'] ?? '');
         $aroma = trim($_POST['aroma'] ?? '');
-        $sexo = trim($_POST['sexo'] ?? '');
+        $sexo = trim($_POST['sexo'] ?? 0);
 
         // Validaciones
         if (
             empty($id_laboratorio) || !is_numeric($id_laboratorio) ||
             empty($precio) || !is_numeric($precio) ||
             empty($codigo) || empty($duracion) ||
-            empty($aroma) || empty($sexo)
+            empty($aroma) || !is_numeric($sexo)
         ) {
             $error = 'Todos los campos son obligatorios y deben ser válidos.';
             $labs = $this->labModel->all();
@@ -186,6 +186,6 @@ class PerfumeController extends Controller {
         }
 
         $this->model->update($id, $id_laboratorio, $precio, $codigo, $duracion, $aroma, $sexo);
-        header('Location: ' . BASE_URL . '?action=admin/perfumes');
+        header('Location: ' . BASE_URL . 'admin/perfumes');
     }
 }

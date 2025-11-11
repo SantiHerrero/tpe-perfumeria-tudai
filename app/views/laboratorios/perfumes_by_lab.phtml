@@ -1,7 +1,7 @@
 <h1>Perfumes de <?= htmlspecialchars($lab['nombre']) ?></h1>
 <?php foreach($items as $it): ?>
   <div class="card">
-    <h3><a href="<?= BASE_URL ?>?action=perfume/<?= $it['id'] ?>"><?= htmlspecialchars($it['codigo'] ?: 'Perfume '.$it['id']) ?></a></h3>
+    <h3><a href="<?= BASE_URL ?>perfume/<?= $it['id'] ?>"><?= htmlspecialchars($it['codigo'] ?: 'Perfume '.$it['id']) ?></a></h3>
     <p><strong>Precio:</strong> $<?= number_format($it['precio'],2) ?></p>
   </div>
 <?php endforeach; ?>

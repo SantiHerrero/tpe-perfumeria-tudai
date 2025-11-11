@@ -1,6 +1,6 @@
 <h1 class="page-title">Laboratorios</h1>
 
-<a class="btn btn-primary" href="<?= BASE_URL ?>?action=admin/laboratorios/create">
+<a class="btn btn-primary" href="<?= BASE_URL ?>admin/laboratorios/create">
     Crear nuevo laboratorio
 </a>
 
@@ -11,7 +11,7 @@
     <?php foreach($labs as $lab): ?>
       <div class="card lab-card">
         <h2 class="lab-name">
-          <a href="<?= BASE_URL ?>?action=laboratorios/<?= $lab['id'] ?>">
+          <a href="<?= BASE_URL ?>laboratorios/<?= $lab['id'] ?>">
             <?= htmlspecialchars($lab['nombre']) ?>
           </a>
         </h2>
@@ -26,7 +26,7 @@
           <strong>País:</strong> <?= htmlspecialchars($lab['pais']) ?>
         </p>
 
-        <a class="btn" href="<?= BASE_URL ?>?action=laboratorios/<?= $lab['id'] ?>">
+        <a class="btn" href="<?= BASE_URL ?>laboratorio/<?= $lab['id'] ?>">
           Ver perfumes
         </a>
       </div>
